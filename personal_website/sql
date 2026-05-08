@@ -1,0 +1,75 @@
+-- 1. Membuat Database
+CREATE DATABASE IF NOT EXISTS personal_website;
+USE personal_website;
+
+-- 2.Membuat Tabel Experiences
+CREATE TABLE experiences (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    start_year INT,
+    end_year INT,
+    type VARCHAR(50),
+    created_at DATETIME,
+    foto VARCHAR(255)
+);
+
+INSERT INTO experiences (id, title, description, start_year, end_year, type, created_at, foto) VALUES
+(4, 'Ketua Osis', 'Osis MA Miftahul Ulum', 2024, 2025, 'organisasi', '2026-04-23 04:51:34', 'uploads/1776895359_zikra12.jpg'),
+(5, 'Humas Pramuka', 'pangkalan Ziyad bin Thoriq', 2023, 2025, 'organisasi', '2026-04-23 05:04:32', 'uploads/1776895472_load3.jpg'),
+(6, 'Instansi Pendidikan', 'Ponpes Miftahul Ulum', 2023, 2025, 'organisasi', '2026-04-23 17:15:28', 'uploads/1776939328_IMG-20241205-WA0056.jpg'),
+(7, 'Staff KPSDM', 'Organisasi Mahasiswa Senada', 2026, 2029, 'organisasi', '2026-05-01 02:59:00', 'uploads/1777902183_IMG_3584.JPG'),
+(8, 'Silat Gagak Lumayung', 'Terakhir Ikut perlombaan tingkat camat', 2020, 2022, 'organisasi', '2026-05-01 19:15:51', 'uploads/1777637751_IMG-20241205-WA0064 (1).jpg'),
+(9, 'Ketua Majelis Dakwah MU', 'Masih aktif hingga saat ini', 2022, 2028, 'organisasi', '2026-05-04 20:42:28', 'uploads/1777902148_Cuplikan layar 2026-01-14 19575...');
+
+-- 3.Membuat Tabel level
+
+CREATE TABLE level (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama VARCHAR(100) NOT NULL
+);
+
+INSERT INTO level (id, nama) VALUES
+(2, 'SD'),
+(3, 'SMP'),
+(4, 'SMA'),
+(6, 'S1 Teknik Informatika'),
+(8, 'TK'),
+(9, 'Pesantren');
+
+-- 4.Membuat Tabel Studies
+
+CREATE TABLE studies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama VARCHAR(255) NOT NULL,
+    id_level INT,
+    keterangan TEXT,
+    tahun_lulus INT,
+    foto_sekolah VARCHAR(255),
+    FOREIGN KEY (id_level) REFERENCES level(id) ON DELETE SET NULL
+);
+
+INSERT INTO studies (id, nama, id_level, keterangan, tahun_lulus, foto_sekolah) VALUES
+(4, 'Miftahul Ulum', 4, 'Good', 2025, 'uploads/1776893670_IMG-20241205-WA0025.jpg'),
+(5, 'Mifathul Ulum', 3, 'Sangat Baik', 2021, 'uploads/1777579258_zikra6.jpg'),
+(6, 'Miftahul Ulum', 9, NULL, 2025, 'uploads/1776895601_IMG-20250325-WA0027.jpg'),
+(9, 'STT Terpadu Nurul Fikri', 6, 'Masih menjadi mahasiswa', 2029, 'uploads/1776942963_zikra4.jpg'),
+(10, 'SDN Batutulis 1 Kota Bogor', 2, 'Foto ini saat sebagai peserta lomba tingkat Kota ...', 2019, 'uploads/1777637132_IMG-20241205-WA0018.jpg');
+
+-- 5.Terakhir membuat Tabel Users
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50),
+    profile_picture VARCHAR(255) DEFAULT NULL,
+    created_at DATETIME
+);
+
+INSERT INTO users (id, username, password, role, profile_picture, created_at) VALUES
+(1, 'Zikra M.H', '0192023a7bbd73250516f069df18b500', 'admin', 'profile_pics/user_1_1778089330.jpg', '2026-04-23 04:10:57'),
+(2, 'NurLaelatul', '7f95b733f4210c71482904eb422143f8', 'Wakil Pimpinan', NULL, '2026-05-01 01:15:38'),
+(3, 'Ujang', '7f95b733f4210c71482904eb422143f8', 'Sekretaris1', NULL, '2026-05-01 01:15:38'),
+(4, 'Resti', '7f95b733f4210c71482904eb422143f8', 'ITSupport', NULL, '2026-05-01 01:15:38'),
+(5, 'Joko', '7f95b733f4210c71482904eb422143f8', 'Mahasigma', NULL, '2026-05-01 01:15:38');
